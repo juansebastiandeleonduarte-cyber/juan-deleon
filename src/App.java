@@ -4,16 +4,21 @@ public class App {
     public static void main(String[] args) throws Exception {
       Scanner sc= new Scanner(System.in);
 
-        int cargas=cantidadcargas(sc);
-        boolean pesovalido=espesovalido(cargas);
-        int n=cargarpesos(pesos, sc);
+        int cantidad = cantidadcargas(sc);
+        double[] pesos = new double[cantidad];
+        
+        cargarpesos(pesos, sc);
+        double total = calcularsuma(pesos);
+        int entre5y80 = contarelrango(pesos, 5, 80);
+        double mayor=contarmayor(pesos, total);
+        
     }
 
     public static int cantidadcargas(Scanner sc) {
         int cantidad;
         
         do {
-            System.out.print("ingrese la cantidad de cargas (entre 3 y 20): ");
+            System.out.print("ingrese la cantidad de cargas entre 3 y 20: ");
             cantidad = sc.nextInt();
             
             if (cantidad < 3 || cantidad > 20) {
@@ -59,7 +64,7 @@ public class App {
         return suma;
     }
      
-    public static int contarEnRango(double[] pesos, double min, double max) {
+    public static int contarelrango(double[] pesos, double min, double max) {
         int contador = 0;
         for (int i = 0; i < pesos.length; i++) {
             if (pesos[i] >= min && pesos[i] <= max) {
@@ -68,13 +73,24 @@ public class App {
         }
         return contador;
     }
-    public static int mayorpeso(double peso){
+    public static int contarmayor(double[] pesos, double limite) {
+        int contador = 0;
 
-
-
-
-
+        for (int i = 0; i < pesos.length; i++) {
+            
+            if (pesos[i] > limite) {
+                contador++;
+            }
+        }
+       
+        return contador;
     }
 
+    public static double calcularPromedio(double[] pesos) {
+        double suma = calcularsuma(pesos);
+
+        return suma / pesos.length;
+    }
+    
 
 }
